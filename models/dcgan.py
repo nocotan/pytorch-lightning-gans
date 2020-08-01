@@ -1,8 +1,8 @@
 """
 To run this template just do:
-python gan.py
+python dcgan.py
 After a few epochs, launch TensorBoard to see the images being generated at every batch:
-tensorboard --logdir default
+tensorboard --logdir defaul
 """
 import os
 from argparse import ArgumentParser, Namespace
@@ -26,49 +26,60 @@ class Generator(nn.Module):
         super().__init__()
         self.img_shape = img_shape
 
-        def block(in_feat, out_feat, normalize=True):
-            layers = [nn.Linear(in_feat, out_feat)]
-            if normalize:
-                layers.append(nn.BatchNorm1d(out_feat, 0.8))
-            layers.append(nn.LeakyReLU(0.2, inplace=True))
-            return layers
+        self.init_size = img_shape[1] // 4
+        self.l1 = nn.Sequential(nn.Linear(latent_dim, 128 * self.init_size ** 2))
 
-        self.model = nn.Sequential(
-            *block(latent_dim, 128, normalize=False),
-            *block(128, 256),
-            *block(256, 512),
-            *block(512, 1024),
-            nn.Linear(1024, int(np.prod(img_shape))),
-            nn.Tanh()
+        self.conv_blocks = nn.Sequential(
+            nn.BatchNorm2d(128),
+            nn.Upsample(scale_factor=2),
+            nn.Conv2d(128, 128, 3, stride=1, padding=1),
+            nn.BatchNorm2d(128, 0.8),
+            nn.LeakyReLU(0.2, inplace=True),
+            nn.Upsample(scale_factor=2),
+            nn.Conv2d(128, 64, 3, stride=1, padding=1),
+            nn.BatchNorm2d(64, 0.8),
+            nn.LeakyReLU(0.2, inplace=True),
+            nn.Conv2d(64, img_shape[0], 3, stride=1, padding=1),
+            nn.Tanh(),
         )
 
     def forward(self, z):
-        img = self.model(z)
-        img = img.view(img.size(0), *self.img_shape)
+        out = self.l1(z)
+        out = out.view(out.shape[0], 128, self.init_size, self.init_size)
+        img = self.conv_blocks(out)
         return img
 
 
 class Discriminator(nn.Module):
     def __init__(self, img_shape):
-        super().__init__()
+        super(Discriminator, self).__init__()
+
+        def discriminator_block(in_feat, out_feat, bn=True):
+            block = [nn.Conv2d(in_feat, out_feat, 3, 2, 1), nn.LeakyReLU(0.2, inplace=True), nn.Dropout2d(0.25)]
+            if bn:
+                block.append(nn.BatchNorm2d(out_feat, 0.8))
+            return block
 
         self.model = nn.Sequential(
-            nn.Linear(int(np.prod(img_shape)), 512),
-            nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(512, 256),
-            nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(256, 1),
-            nn.Sigmoid(),
+            *discriminator_block(img_shape[0], 16, bn=False),
+            *discriminator_block(16, 32),
+            *discriminator_block(32, 64),
+            *discriminator_block(64, 128),
         )
 
+        # The height and width of downsampled image
+        ds_size = img_shape[1] // 2 ** 4
+        self.adv_layer = nn.Sequential(nn.Linear(128 * ds_size ** 2, 1), nn.Sigmoid())
+
     def forward(self, img):
-        img_flat = img.view(img.size(0), -1)
-        validity = self.model(img_flat)
+        out = self.model(img)
+        out = out.view(out.shape[0], -1)
+        validity = self.adv_layer(out)
 
         return validity
 
 
-class GAN(LightningModule):
+class DCGAN(LightningModule):
 
     def __init__(self,
                  latent_dim: int = 100,
@@ -85,9 +96,9 @@ class GAN(LightningModule):
         self.batch_size = batch_size
 
         # networks
-        mnist_shape = (1, 28, 28)
-        self.generator = Generator(latent_dim=self.latent_dim, img_shape=mnist_shape)
-        self.discriminator = Discriminator(img_shape=mnist_shape)
+        img_shape = (1, 32, 32)
+        self.generator = Generator(latent_dim=self.latent_dim, img_shape=img_shape)
+        self.discriminator = Discriminator(img_shape=img_shape)
 
         self.validation_z = torch.randn(8, self.latent_dim)
 
@@ -170,9 +181,11 @@ class GAN(LightningModule):
 
     def train_dataloader(self):
         transform = transforms.Compose([
+            transforms.Resize((32, 32)),
             transforms.ToTensor(),
             transforms.Normalize([0.5], [0.5]),
         ])
+
         dataset = MNIST(os.getcwd(), train=True, download=True, transform=transform)
         return DataLoader(dataset, batch_size=self.batch_size)
 
@@ -189,7 +202,7 @@ def main(args: Namespace) -> None:
     # ------------------------
     # 1 INIT LIGHTNING MODEL
     # ------------------------
-    model = GAN(**vars(args))
+    model = DCGAN(**vars(args))
 
     # ------------------------
     # 2 INIT TRAINER
