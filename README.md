@@ -1,7 +1,5 @@
 PyTorch Lightning GANs
 
-This repository is highly inspired by [PyTorch-GAN](https://github.com/eriklindernoren/PyTorch-GAN) repository.
-
 # Example
 The minimum code for training GAN is as follows:
 
@@ -19,6 +17,9 @@ trainer.fit(model)
 * BEGAN: Boundary equilibrium generative adversarial networks (Berthelot et al.)
 * DCGAN: Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks (Radford et al.)
 * GAN: Generative Adversarial Networks (Goodfellow et al.)
+
+# Acknowledgements
+This repository is highly inspired by [PyTorch-GAN](https://github.com/eriklindernoren/PyTorch-GAN) repository.
 
 # References
 * Goodfellow, Ian, et al. "Generative adversarial nets." Advances in neural information processing systems. 2014.
