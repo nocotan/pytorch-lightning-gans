@@ -77,6 +77,7 @@ class GAN(LightningModule):
                  b2: float = 0.999,
                  batch_size: int = 64, **kwargs):
         super().__init__()
+        self.save_hyperparameters()
 
         self.latent_dim = latent_dim
         self.lr = lr
@@ -91,7 +92,7 @@ class GAN(LightningModule):
 
         self.validation_z = torch.randn(8, self.latent_dim)
 
-        self.example_input_array = torch.zeros(2, hparams.latent_dim)
+        self.example_input_array = torch.zeros(2, self.latent_dim)
 
     def forward(self, z):
         return self.generator(z)

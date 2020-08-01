@@ -2,6 +2,19 @@ PyTorch Lightning GANs
 
 This repository is highly inspired by [PyTorch-GAN](https://github.com/eriklindernoren/PyTorch-GAN) repository.
 
+# Example
+The minimum code for training GAN is as follows:
+
+```python
+from pytorch_lightning.trainer import Trainer
+from models import GAN
+
+
+model = GAN()
+trainer = Trainer()
+trainer.fit(model)
+```
+
 # Implementations
 * GAN (Goodfellow et al.)
 * DCGAN (Radford et al.)
