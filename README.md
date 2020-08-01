@@ -1,4 +1,5 @@
 # PyTorch Lightning GANs
+Collection of PyTorch Lightning implementations of Generative Adversarial Network varieties presented in research papers.
 
 ## Installation
 
