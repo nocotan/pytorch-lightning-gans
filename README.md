@@ -1,5 +1,11 @@
 PyTorch Lightning GANs
 
+# Installation
+
+```bash
+$ pip install -r requirements.txt
+```
+
 # Example
 The minimum code for training GAN is as follows:
 
