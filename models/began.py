@@ -194,7 +194,7 @@ class BEGAN(LightningModule):
         return DataLoader(dataset, batch_size=self.batch_size)
 
     def on_epoch_end(self):
-        z = self.validation_z.type_as(self.generator.model[0].weight)
+        z = self.validation_z.to(self.device)
 
         # log sampled images
         sample_imgs = self(z)
