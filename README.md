@@ -20,6 +20,12 @@ trainer = Trainer()
 trainer.fit(model)
 ```
 
+or you can run the following command:
+
+```bash
+$ python models/gan.py --gpus=2
+```
+
 ## Implementations
 * BEGAN: Boundary equilibrium generative adversarial networks (Berthelot et al.)
 * DCGAN: Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks (Radford et al.)
