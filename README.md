@@ -25,6 +25,7 @@ trainer.fit(model)
 * DCGAN: Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks (Radford et al.)
 * GAN: Generative Adversarial Networks (Goodfellow et al.)
 * LSGAN: Least squares generative adversarial networks (Mao et al.)
+* WGAN: Wasserstein GAN (Arjovsky et al.)
 
 ## Acknowledgements
 This repository is highly inspired by [PyTorch-GAN](https://github.com/eriklindernoren/PyTorch-GAN) repository.
@@ -34,3 +35,4 @@ This repository is highly inspired by [PyTorch-GAN](https://github.com/eriklinde
 * Radford, Alec, Luke Metz, and Soumith Chintala. "Unsupervised representation learning with deep convolutional generative adversarial networks." arXiv preprint arXiv:1511.06434 (2015).
 * Berthelot, David, Thomas Schumm, and Luke Metz. "Began: Boundary equilibrium generative adversarial networks." arXiv preprint arXiv:1703.10717 (2017).
 * Mao, Xudong, et al. "Least squares generative adversarial networks." Proceedings of the IEEE international conference on computer vision. 2017.
+* Arjovsky, Martin, Soumith Chintala, and Léon Bottou. "Wasserstein generative adversarial networks." Proceedings of the 34th International Conference on Machine Learning-Volume 70. 2017.
