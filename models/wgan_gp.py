@@ -101,8 +101,9 @@ class WGANGP(LightningModule):
         alpha = torch.Tensor(np.random.random((real_samples.size(0), 1, 1, 1)))
         # Get random interpolation between real and fake samples
         interpolates = (alpha * real_samples + ((1 - alpha) * fake_samples)).requires_grad_(True)
+        interpolates = interpolates.to(self.device)
         d_interpolates = self.discriminator(interpolates)
-        fake = torch.Tensor(real_samples.shape[0], 1).fill_(1.0)
+        fake = torch.Tensor(real_samples.shape[0], 1).fill_(1.0).to(self.device)
         # Get gradient w.r.t. interpolates
         gradients = torch.autograd.grad(
             outputs=d_interpolates,
@@ -112,7 +113,7 @@ class WGANGP(LightningModule):
             retain_graph=True,
             only_inputs=True,
         )[0]
-        gradients = gradients.view(gradients.size(0), -1)
+        gradients = gradients.view(gradients.size(0), -1).to(self.device)
         gradient_penalty = ((gradients.norm(2, dim=1) - 1) ** 2).mean()
         return gradient_penalty
 
