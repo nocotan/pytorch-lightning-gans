@@ -160,8 +160,8 @@ class WGAN(LightningModule):
         opt_g = torch.optim.Adam(self.generator.parameters(), lr=lr, betas=(b1, b2))
         opt_d = torch.optim.Adam(self.discriminator.parameters(), lr=lr, betas=(b1, b2))
         return (
-            {'optimizer': opt_g, 'frequency': n_critic},
-            {'optimizer': opt_d, 'frequency': 1}
+            {'optimizer': opt_g, 'frequency': 1},
+            {'optimizer': opt_d, 'frequency': n_critic}
         )
 
     def train_dataloader(self):
