@@ -31,6 +31,7 @@ $ python models/gan.py --gpus=2
 ```
 
 ## Implementations
+* ACGAN: Auxiliary Classifier GAN (Odena et al.)
 * BEGAN: Boundary equilibrium generative adversarial networks (Berthelot et al.)
 * DCGAN: Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks (Radford et al.)
 * GAN: Generative Adversarial Networks (Goodfellow et al.)
@@ -44,6 +45,7 @@ This repository is highly inspired by [PyTorch-GAN](https://github.com/eriklinde
 ## References
 * Goodfellow, Ian, et al. "Generative adversarial nets." Advances in neural information processing systems. 2014.
 * Radford, Alec, Luke Metz, and Soumith Chintala. "Unsupervised representation learning with deep convolutional generative adversarial networks." arXiv preprint arXiv:1511.06434 (2015).
+* Odena, Augustus, Christopher Olah, and Jonathon Shlens. 2016. “Conditional Image Synthesis With Auxiliary Classifier GANs.” arXiv [stat.ML]. arXiv. http://arxiv.org/abs/1610.09585.
 * Berthelot, David, Thomas Schumm, and Luke Metz. "Began: Boundary equilibrium generative adversarial networks." arXiv preprint arXiv:1703.10717 (2017).
 * Mao, Xudong, et al. "Least squares generative adversarial networks." Proceedings of the IEEE international conference on computer vision. 2017.
 * Arjovsky, Martin, Soumith Chintala, and Léon Bottou. "Wasserstein generative adversarial networks." Proceedings of the 34th International Conference on Machine Learning-Volume 70. 2017.
