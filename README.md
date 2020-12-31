@@ -47,3 +47,17 @@ This repository is highly inspired by [PyTorch-GAN](https://github.com/eriklinde
 * Mao, Xudong, et al. "Least squares generative adversarial networks." Proceedings of the IEEE international conference on computer vision. 2017.
 * Arjovsky, Martin, Soumith Chintala, and Léon Bottou. "Wasserstein generative adversarial networks." Proceedings of the 34th International Conference on Machine Learning-Volume 70. 2017.
 * Gulrajani, Ishaan, et al. "Improved training of wasserstein gans." Advances in neural information processing systems. 2017.
+
+## Citation
+
+```bibtex
+@software{https://doi.org/10.5281/zenodo.4404867,
+  doi = {10.5281/ZENODO.4404867},
+  url = {https://zenodo.org/record/4404867},
+  author = {Masanari Kimura},
+  title = {pytorch-lightning-gans},
+  publisher = {Zenodo},
+  year = {2020},
+  copyright = {Open Access}
+}
+```
