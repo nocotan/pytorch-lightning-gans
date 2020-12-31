@@ -1,6 +1,7 @@
 # PyTorch Lightning GANs
 
 [![DOI](https://zenodo.org/badge/202523756.svg)](https://zenodo.org/badge/latestdoi/202523756)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Collection of PyTorch Lightning implementations of Generative Adversarial Network varieties presented in research papers.
 
