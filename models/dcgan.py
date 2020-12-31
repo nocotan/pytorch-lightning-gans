@@ -2,7 +2,7 @@
 To run this template just do:
 python dcgan.py
 After a few epochs, launch TensorBoard to see the images being generated at every batch:
-tensorboard --logdir defaul
+tensorboard --logdir default
 """
 import os
 from argparse import ArgumentParser, Namespace
