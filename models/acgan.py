@@ -73,7 +73,7 @@ class Discriminator(nn.Module):
         # The height and width of downsampled image
         ds_size = img_shape[1] // 2 ** 4
         self.adv_layer = nn.Sequential(nn.Linear(128 * ds_size ** 2, 1), nn.Sigmoid())
-        self.aux_layer = nn.Sequential(nn.Linear(128 * ds_size ** 2, n_classes), nn.Softmax())
+        self.aux_layer = nn.Sequential(nn.Linear(128 * ds_size ** 2, n_classes))
 
     def forward(self, img):
         out = self.model(img)
@@ -118,7 +118,7 @@ class ACGAN(LightningModule):
         return self.generator(z, labels)
 
     def adversarial_loss(self, y_hat, y):
-        return F.binary_cross_entropy(y_hat, y)
+        return F.binary_cross_entropy_with_logits(y_hat, y)
 
     def auxiliary_loss(self, y_hat, y):
         return F.cross_entropy(y_hat, y)
