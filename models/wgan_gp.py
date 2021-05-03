@@ -144,7 +144,6 @@ class WGANGP(LightningModule):
             valid = torch.ones(imgs.size(0), 1)
             valid = valid.type_as(imgs)
 
-            # adversarial loss is binary cross-entropy
             g_loss = -torch.mean(self.discriminator(self(z)))
             tqdm_dict = {'g_loss': g_loss}
             output = OrderedDict({
