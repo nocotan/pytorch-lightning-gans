@@ -3,6 +3,7 @@
 [![DOI](https://zenodo.org/badge/202523756.svg)](https://zenodo.org/badge/latestdoi/202523756)
 [![GitHub license](https://img.shields.io/github/license/nocotan/pytorch-lightning-gans)](https://github.com/nocotan/pytorch-lightning-gans/blob/master/LICENSE)
 ![GitHub Repo stars](https://img.shields.io/github/stars/nocotan/pytorch-lightning-gans?style=social)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/nocotan/pytorch-lightning-gans)
 
 Collection of PyTorch Lightning implementations of Generative Adversarial Network varieties presented in research papers.
 
